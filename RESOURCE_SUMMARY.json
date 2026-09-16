@@ -1,0 +1,54 @@
+{
+  "protocol": "7506-mp1-wt2-v2",
+  "measurement_split": "validation",
+  "precision": "fp32",
+  "device": "cpu",
+  "threads": 4,
+  "common_workload": {
+    "targets": 376599,
+    "utf8_bytes": 1148007,
+    "windows": 1472
+  },
+  "baseline_b0": {
+    "parameters": 1088256,
+    "score_seconds": 8.209438499994576,
+    "external_elapsed_seconds": 16.55,
+    "peak_rss_bytes": 1620344832,
+    "peak_rss_gib": 1.509063720703125,
+    "checkpoint_sha256": "274ae3961690efa13c611de1265950028a1288f6bcb328780a998191b9a8a870",
+    "checkpoint_bytes": 4370557,
+    "resource_json_sha256": "8839f1cf0c69b99249ae7903f6a7d50d570eb6babf82852c815a82fe57562468",
+    "resource_log_sha256": "8418a30a6fe3781d4345ee3acb849635317b538aa7adf5e9631478f98ed58e43"
+  },
+  "proposed_cache_on": {
+    "parameters": 10601600,
+    "score_seconds": 34.338784708001185,
+    "external_elapsed_seconds": 42.88,
+    "peak_rss_bytes": 1629274112,
+    "peak_rss_gib": 1.5173797607421875,
+    "checkpoint_sha256": "25e2c6adcdc312726317e6abe06df6f7035bde5675ae70d5eb7f51978db71152",
+    "checkpoint_bytes": 42438297,
+    "cache_model_sha256": "356794251507ce32e52c3171a6b5e3a37a49e048221be318d9c4d4d5afd27be0",
+    "cache_model_bytes": 3500,
+    "model_sha256": "6cce142a31d396f017319543f50d70f30fa6da740729af01c8baed13c6f671f9",
+    "model_bytes": 2771,
+    "inference_asset_bytes": 42444568,
+    "inference_asset_mib": 40.478294372558594,
+    "resource_log_sha256": "6ff50d1ba5a66c99ac20d9778d8c8a4b7f63f070d546da070a5fa7a99268a640"
+  },
+  "comparisons": {
+    "score_time_ratio_proposed_over_b0": 4.182842067459775,
+    "external_elapsed_ratio_proposed_over_b0": 2.5909365558912385
+  },
+  "limits": {
+    "maximum_score_time_ratio": 5.0,
+    "maximum_peak_rss_gib": 4.0,
+    "maximum_inference_asset_mib": 64.0
+  },
+  "compliance": {
+    "score_time_ratio_pass": true,
+    "peak_rss_pass": true,
+    "inference_asset_size_pass": true,
+    "all_pass": true
+  }
+}

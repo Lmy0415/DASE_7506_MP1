@@ -1,0 +1,11 @@
+{
+  "vocab": 2048,
+  "width": 320,
+  "heads": 10,
+  "depth": 8,
+  "context": 256,
+  "cache_enabled": true,
+  "cache_window": 255,
+  "cache_theta": 13.0,
+  "cache_lambda": 0.065
+}

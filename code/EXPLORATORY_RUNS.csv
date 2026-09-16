@@ -1,0 +1,25 @@
+category,run_id,seed,model,parameters,steps,targets,threads,train_seconds,process_or_eval_seconds,split,bpb,checkpoint_sha256,notes
+gate_training,smoke-baseline-s17,17,baseline-128x4,1088256,10,81920,4,3.118,21.645,validation,3.579822,3d01a051e2db1a90ca60929d6fc5f76ae8dd266cc1d2cb4fbbb964c560b0e29d,Recorded exploratory metrics
+gate_training,smoke-gate-off-s17,17,gate-128x4,1154304,10,81920,4,2.899,17.890,validation,3.579822,8069d42fda84b555138ebce671365dc08af672f00154efc929fa7e39c172038f,Recorded exploratory metrics
+gate_training,smoke-gate-on-s17,17,gate-128x4,1154304,10,81920,4,3.100,18.648,validation,3.579677,4a0b042397e29738cb2dfc3770730c5397bbc498fa99e28ba69a77a0ab204938,Recorded exploratory metrics
+gate_training,pilot300-gate-off-s17,17,gate-128x4,1154304,300,2457600,4,91.009,107.097,validation,2.491554,84ef2bf378eedc383723ff0ffa60c16b15e76b9aefc1eb30f4451da58c50c301,Recorded exploratory metrics
+gate_training,pilot300-gate-on-s17,17,gate-128x4,1154304,300,2457600,4,160.729,178.195,validation,2.491701,1f20f99ef3a8bdf8104ef4749787e9cf7d1a15d8ef14dcd414334ebaf9719d70,Recorded exploratory metrics
+gate_training,full1200-gate-off-s17,17,gate-128x4,1154304,1200,9830400,4,367.549,414.733,validation,2.071087,ba6637d7bd70022ca52781612be6e9438e900a63859acf566b3d77c91fbe8ed4,Recorded exploratory metrics
+gate_training,full1200-gate-on-s17,17,gate-128x4,1154304,1200,9830400,4,406.633,457.571,validation,2.062157,7958ac7cf8ff09f4d6fe171d5a24bc608cfeb0e8314f9f8bb1b6e71c8fc1a3bd,Recorded exploratory metrics
+architecture_search,search-256x12-600-s17,17,gpt-256x12,10067456,600,4915200,3,2341.167,2441.870,validation,2.137945,fba1a2aba40a32eea4dff1f68bb0278cb16554f7a74ae3d11ae17d1f1720bbfd,Recorded exploratory metrics
+architecture_search,search-288x10-600-s17,17,gpt-288x10,10654848,600,4915200,3,2286.536,2398.318,validation,2.107498,bed637a90ba5ccda88b59d4a1756f71f1977030b1ff006ca7afd797979d51feb,Recorded exploratory metrics
+architecture_search,search-320x8-600-s17,17,gpt-320x8,10601600,600,4915200,3,2127.397,2257.992,validation,2.076717,0ab0f7f472641e820eb403bcbe6dfddcea016f45ab1bd7e5bd8fab77c5874153,Recorded exploratory metrics
+scaling,scaled-192x6-1200-s17,17,gpt-192x6,3111936,1200,9830400,4,779.092,857.355,validation,1.955112,f69c55917eeaa520bcd674b730e9d6b37e9b6e5e131f07e5bcbec612c66fa8fc,Recorded exploratory metrics
+scaling,scaled-192x6-3600-s17,17,gpt-192x6,3111936,3600,29491200,4,2300.381,2406.186,validation,1.678547,6a69ce02ad094f82a4c58fb195e0388745170720c106f299d3eb1003530f465a,Recorded exploratory metrics
+schedule_search,final-320x8-cosine-4800-s17,17,gpt-320x8,10601600,4800,39321600,3,13674.243,14160.403,validation,1.676923,b2cdf332049bc2b4e60c66d13275a51a75e1f0a983f1a15cd5959a225a9f6098,Recorded exploratory metrics
+schedule_search,final-320x8-wsd-4800-s17,17,gpt-320x8,10601600,4800,39321600,3,13782.628,14170.430,validation,1.654850,aea51adeb8c6d89f93244214ffb52645f5d709f6920731424fc3ef94ff196fc0,Recorded exploratory metrics
+standalone_eval,continuous-cache-base-validation,17,continuous-cache-128x4,,1200,9830400,4,,9.996,validation,1.997427,,Independent evaluation only
+standalone_eval,continuous-cache-base-test,17,continuous-cache-128x4,,1200,9830400,4,,11.674,test,2.010090,,Historical test exposure
+standalone_eval,gate-off-test,17,gate-128x4,1154304,1200,9830400,4,,8.580,test,2.101265,,Historical test exposure
+standalone_eval,gate-on-test,17,gate-128x4,1154304,1200,9830400,4,,8.921,test,2.091555,,Historical test exposure
+standalone_eval,gate-on-validation-recheck,17,gate-128x4,1154304,1200,9830400,4,,7.992,validation,2.062157,,Independent evaluation only
+standalone_eval,gate-on-validation-ram,17,gate-128x4,1154304,1200,9830400,4,,7.851,validation,2.062157,,Independent evaluation only
+standalone_eval,final-320x8-cache-validation,17,gpt-320x8-cache,10601600,4800,39321600,3,,31.691,validation,1.608030,,Independent evaluation only
+standalone_eval,final-320x8-cache-test,17,gpt-320x8-cache,10601600,4800,39321600,3,,37.244,test,1.622126,,Historical test exposure
+standalone_eval,scaled-192x6-cache-validation,17,gpt-192x6-cache,3111936,3600,29491200,4,,15.522,validation,1.641603,,Independent evaluation only
+standalone_eval,scaled-192x6-cache-test,17,gpt-192x6-cache,3111936,3600,29491200,4,,17.582,test,1.655538,,Historical test exposure

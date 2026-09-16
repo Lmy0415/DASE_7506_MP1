@@ -1,0 +1,64 @@
+{
+  "protocol": "7506-mp1-wt2-v2",
+  "split": "validation",
+  "seed": 7506,
+  "precision": "fp32",
+  "device": "cpu",
+  "threads": 4,
+  "training": {
+    "steps": 3000,
+    "schedule_steps": 4800,
+    "targets": 24576000,
+    "parameters": 10601600,
+    "source_checkpoint_sha256": "6ac948e12bc6ffd9eb8582a2167b574ec043081701a45e7c0949311f94772d47"
+  },
+  "cache": {
+    "window": 255,
+    "theta": 13.0,
+    "lambda": 0.065,
+    "causal_within_window": true
+  },
+  "cache_off": {
+    "bpb": 1.634623765423197,
+    "token_ppl": 31.623203068307514,
+    "nll_nats": 1300731.9439566971,
+    "targets": 376599,
+    "utf8_bytes": 1148007,
+    "score_seconds": 32.33609533298295,
+    "checkpoint_sha256": "89bb79e6ea87355c37001669546566d093c890972414e82812ba5dc6848a6096",
+    "checkpoint_bytes": 42438467,
+    "validation_json_sha256": "c0fd9648b83705e1806be8c2f611670b9811330257cacabc68cd735f0232f47b",
+    "window_nll_sha256": "67d422b69823ec2839a977f3db7668f669fa37269095e189ecea1da7eb912b62"
+  },
+  "cache_on": {
+    "bpb": 1.598754227700291,
+    "token_ppl": 29.315028539587228,
+    "nll_nats": 1272189.1963727819,
+    "targets": 376599,
+    "utf8_bytes": 1148007,
+    "score_seconds": 34.338784708001185,
+    "checkpoint_sha256": "25e2c6adcdc312726317e6abe06df6f7035bde5675ae70d5eb7f51978db71152",
+    "checkpoint_bytes": 42438297,
+    "validation_json_sha256": "3ceec5f1f8c3e956b403af2a16c1a780e46d238c9c56eae096fbedb8b2dd4327",
+    "window_nll_sha256": "d949d004f5d502ef873a0b5952a21b7c2fc0cae238e45ab1905ec1ddb9f9e0a4"
+  },
+  "comparison": {
+    "bpb_delta_cache_on_minus_off": -0.035869537722906,
+    "nll_delta_nats_cache_on_minus_off": -28542.7475839152,
+    "same_neural_weights": true,
+    "lower_is_better": true
+  },
+  "paired_window_statistics": {
+    "window_count": 1472,
+    "improved_windows": 1259,
+    "worsened_windows": 213,
+    "improved_fraction": 0.8552989130,
+    "median_delta_nats": -13.978216,
+    "mean_delta_nats": -19.390454,
+    "total_delta_nats": -28542.747584,
+    "minimum_delta_nats": -160.542,
+    "maximum_delta_nats": 12.622,
+    "delta_definition": "cache_on_minus_cache_off",
+    "precision_note": "Window-level summary values are rounded because their recorded source precision is six decimal places."
+  }
+}

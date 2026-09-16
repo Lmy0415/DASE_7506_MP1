@@ -1,0 +1,70 @@
+{
+  "protocol": "7506-mp1-wt2-v2",
+  "frozen_at_utc": "2026-09-16T18:06:24Z",
+  "freeze_boundary": "The Git commit containing this declaration is the pre-test method freeze boundary.",
+  "parent_commit_before_freeze": "fcdda18d17b316173dd7c452ecad8acc708bd8e5",
+  "test_isolation": {
+    "test_file_present_at_freeze": false,
+    "formal_test_runs_before_freeze": 0,
+    "development_data": [
+      "wikitext_train.txt",
+      "wikitext_validation.txt"
+    ]
+  },
+  "selection": {
+    "architecture": "width 320, 8 blocks, 10 heads",
+    "parameters": 10601600,
+    "seed": 7506,
+    "training_steps": 3000,
+    "schedule_steps": 4800,
+    "batch_size": 32,
+    "training_targets": 24576000,
+    "cache_window": 255,
+    "cache_theta": 13.0,
+    "cache_lambda": 0.065,
+    "selection_changed_after_freeze": false
+  },
+  "checkpoint": {
+    "path": "code/frozen/P0-step3000-cache-on.pt",
+    "bytes": 42438297,
+    "sha256": "25e2c6adcdc312726317e6abe06df6f7035bde5675ae70d5eb7f51978db71152",
+    "source_checkpoint_sha256": "6ac948e12bc6ffd9eb8582a2167b574ec043081701a45e7c0949311f94772d47",
+    "implementation": "cache_model",
+    "implementation_sha256": "356794251507ce32e52c3171a6b5e3a37a49e048221be318d9c4d4d5afd27be0",
+    "config_sha256": "93d5e9129b837fa0001f5fa90752aa68e45a067b7a8cf73a9376f45d30a8b5c7"
+  },
+  "validation": {
+    "bpb": 1.598754227700291,
+    "cache_off_bpb": 1.634623765423197,
+    "cache_delta_bpb": -0.035869537722906,
+    "initial_baseline_bpb": 2.0758907736724805,
+    "total_delta_bpb": -0.47713654597218946
+  },
+  "resource_compliance": {
+    "score_time_ratio": 4.182842067459775,
+    "peak_rss_gib": 1.5173797607421875,
+    "inference_asset_mib": 40.478294372558594,
+    "all_limits_pass": true
+  },
+  "contract_tests": {
+    "tests_run": 24,
+    "seconds": 8.337,
+    "status": "OK"
+  },
+  "integrity": {
+    "official_common_sha256": "d40dc1fe6578b5993a563bdb4d9e5317ddc9fae8afe48822b66571c7042e84db",
+    "official_evaluator_sha256": "128bcb2dab0be0d427505bddb4671e3ab3a8f78e114be79a689c0f9029af133d",
+    "tokenizer_sha256": "020d1bc6aa4449c4f352b2e03d0e0fb4f39287f15297705e421b1fa7d817262e",
+    "train_text_sha256": "c58d555a94ada0882d1e8c0b3dc7ba68e1c269da5ad9e7a057300245d130c4e8",
+    "validation_text_sha256": "714a24a5de7459876f7cfdc64837e551dd7cde2a51f95b763ee083fff273e307",
+    "cache_ablation_sha256": "4fcd54a7075eb1ea98066583643999579adcba982b20259e1d8126b3a8369ba6",
+    "resource_summary_sha256": "2f7d817a368fd5bf507574d2e7f6197ac046d7ad9be3b62c1f96f7445ff5451c",
+    "bundle_manifest_sha256": "38cbad316a91e2cb658ff85ffbba81fa4b45c0f60d97c8f012bd5dfe7ae4b29a",
+    "bundle_part_sha256": [
+      "f1b9844854476b77d5ef7da4575555a4ccbbb874d869b4bd909e38d821904dfc",
+      "dc212e3749dd54d9a3ebfd3f786db15a1dcd0d1eb42b7fe096a22988491746de",
+      "ed753f6d75f172d9690ec1c8bea266a9695e41bb8a7093702ad02e57bf320256"
+    ]
+  },
+  "post_freeze_policy": "Restore the supplied test text, run exactly one official FP32 CPU test evaluation of this checkpoint, and do not change the selected method in response."
+}

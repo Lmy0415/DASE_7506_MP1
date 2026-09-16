@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-09-16T18:06:24Z",
+  "bundle_manifest_sha256": "38cbad316a91e2cb658ff85ffbba81fa4b45c0f60d97c8f012bd5dfe7ae4b29a",
+  "expected_checkpoint_sha256": "25e2c6adcdc312726317e6abe06df6f7035bde5675ae70d5eb7f51978db71152",
+  "reconstructed_checkpoint_sha256": "25e2c6adcdc312726317e6abe06df6f7035bde5675ae70d5eb7f51978db71152",
+  "checkpoint_bytes": 42438297,
+  "hash_match": true,
+  "validation_load_and_score_passed": true,
+  "original_validation_bpb": 1.598754227700291,
+  "reconstructed_validation_bpb": 1.5987543293376403,
+  "absolute_bpb_difference": 1.0163734920354273e-07,
+  "reconstructed_validation_json_sha256": "ab970ad50f30cecfd8d286d775d3c796c808d75eaecc48b6d5fe11d318278d75",
+  "reconstructed_window_nll_sha256": "e797def3422be17a515481e4b6ed02989c8d7b3e094c4762dc77cd04b1a1a57f",
+  "note": "The exact checkpoint bytes match. The tiny BPB difference is ordinary CPU floating-point reduction variation across scoring runs."
+}

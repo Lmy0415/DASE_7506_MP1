@@ -1,0 +1,37 @@
+{
+  "format_version": 1,
+  "checkpoint_name": "P0-step3000-cache-on.pt",
+  "checkpoint_bytes": 42438297,
+  "checkpoint_sha256": "25e2c6adcdc312726317e6abe06df6f7035bde5675ae70d5eb7f51978db71152",
+  "chunk_bytes": 20971520,
+  "parts": [
+    {
+      "name": "P0-step3000-cache-on.pt.part-000",
+      "bytes": 20971520,
+      "sha256": "f1b9844854476b77d5ef7da4575555a4ccbbb874d869b4bd909e38d821904dfc"
+    },
+    {
+      "name": "P0-step3000-cache-on.pt.part-001",
+      "bytes": 20971520,
+      "sha256": "dc212e3749dd54d9a3ebfd3f786db15a1dcd0d1eb42b7fe096a22988491746de"
+    },
+    {
+      "name": "P0-step3000-cache-on.pt.part-002",
+      "bytes": 495257,
+      "sha256": "ed753f6d75f172d9690ec1c8bea266a9695e41bb8a7093702ad02e57bf320256"
+    }
+  ],
+  "required_assets": [
+    {
+      "path": "cache_model.py",
+      "bytes": 3500,
+      "sha256": "356794251507ce32e52c3171a6b5e3a37a49e048221be318d9c4d4d5afd27be0"
+    },
+    {
+      "path": "model.py",
+      "bytes": 2771,
+      "sha256": "6cce142a31d396f017319543f50d70f30fa6da740729af01c8baed13c6f671f9"
+    }
+  ],
+  "uncompressed_inference_bytes": 42444568
+}
