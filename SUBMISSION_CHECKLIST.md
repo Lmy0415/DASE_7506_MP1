@@ -1,0 +1,21 @@
+# Submission checklist
+
+- [x] Preserve source ZIP SHA-256 and unchanged official scorer hashes.
+- [x] Create test-isolated formal development copy.
+- [x] Preregister B0, B1, P0, seed, stopping point and cache constants.
+- [x] Run B0 and record validation BPB, cost and checkpoint hash.
+- [x] Run B1 and record validation BPB, cost and checkpoint hash.
+- [x] Record P0 step-1,200 same-target validation result and checkpoint hash.
+- [x] Complete the predeclared P0 step-3,000 run.
+- [x] Freeze cache-off and cache-on artifacts from the same neural checkpoint.
+- [x] Run validation-only cache ablation.
+- [x] Measure paired CPU time, peak RSS and inference-asset bytes; all limits pass.
+- [x] Run all contract/protocol tests on the frozen code (`Ran 24 tests in 8.337s`, `OK`; timing is informational).
+- [x] Commit `FINAL_FREEZE.json` before restoring the test split (public freeze commit `846cfda2daaf0719bcd994302e44f5092f4f7413`; original formal workspace commit `30eb20d9d1f36bb790615c3753fa2c6e8ba53b5f`).
+- [x] Run exactly one new formal full-test evaluation of the frozen predictor (1.6160026140038766 BPB).
+- [ ] Fill every report/README/Issue placeholder from recorded artifacts.
+- [x] Compile the standard LaTeX report and visually inspect all 6 PDF pages (<=10 pages).
+- [x] Build and hash the checkpoint download bundle; test its reconstruction and loading.
+- [ ] Create immutable GitHub source/checkpoint/report links.
+- [ ] Create the GitHub Issue titled `DASE_7506_MP1` with matching BPB and links.
+- [ ] Reassemble/load the published bundle and reproduce validation as a packaging check.

@@ -47,5 +47,7 @@ historically unseen.
 ## Formal costs
 
 Formal job costs are recorded separately in `code/FORMAL_RUNS.csv` and the
-immutable JSON artifacts.  The formal and exploratory totals are combined in
-the final report only after all formal jobs and resource measurements finish.
+immutable JSON artifacts. The one post-freeze formal test obtained
+1.6160026140038766 BPB in 41.520049 scorer seconds and 50.96 external elapsed
+seconds. No method choice was changed afterward. The final report combines the
+formal and exploratory ledgers while keeping unlike timing scopes explicit.
