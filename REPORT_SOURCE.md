@@ -101,6 +101,21 @@ Ten heads preserve the baseline head dimension: $10\times32=320$. This avoids
 confounding greater model width with a different per-head dimension. The cache
 does not participate in training and adds no learned parameters.
 
+The parameter counts can be audited directly from the architecture. With
+vocabulary $V$, context length $C$, width $d$ and $N$ blocks, tied input/output
+embeddings give
+
+$$
+P(V,C,d,N)=Vd+Cd+N(12d^2+13d)+2d.
+$$
+
+Within each block, Q/K/V and the attention output contribute $4d^2$, while the
+two MLP projections contribute $8d^2$; biases and two LayerNorms account for
+the $13d$ term. Substitution yields 1,088,256 parameters for
+$(d,N)=(128,4)$ and 10,601,600 for $(320,8)$. Because width, depth and head
+count change together, the formal same-target control identifies the effect of
+this capacity/shape bundle, not a separate causal effect for any one dimension.
+
 ### 2.2 Strictly causal continuous cache
 
 The method adapts the continuous-cache idea of Grave, Joulin and Usunier [5].
@@ -143,12 +158,38 @@ similar successors; it can hurt when hidden similarity retrieves an irrelevant
 successor. The small interpolation weight limits that risk, and an exact
 cache-off/on comparison measures its net effect.
 
+Causality follows from the index constraint rather than from an informal
+assumption about implementation. For a query at $t$, every memory satisfies
+$m<t$, so its largest possible successor index is $m+1=t$; that token is
+already inside $x_{\leq t}$. The lower-triangular mask is applied to similarity
+logits before softmax, hence a forbidden location receives exactly zero
+probability. With $K=255$, all useful earlier positions of a 256-token window
+are available, but none from another window are retained.
+
+For the observed next token $y^*$, interpolation helps exactly when
+$p_{\mathrm{cache}}(y^*)>p_{\mathrm{NN}}(y^*)$ and hurts when the inequality is
+reversed. If the cache gives $y^*$ zero mass, the neural probability is only
+scaled by $1-\lambda=0.935$, corresponding to a worst-case extra penalty of
+$-\log_2(0.935)=0.09696$ bits per token. This bounded downside is one reason
+for using a small validation-selected interpolation weight.
+
 ### 2.3 Optimizer and cosine trajectory
 
 All formal runs use AdamW [4], whose decoupled weight decay is distinct from an
 $L_2$ penalty under adaptive optimization. The peak learning rate is $10^{-3}$,
 warmup is 100 updates, minimum/peak ratio is 0.1, weight decay is 0.1, and
 gradient norm is clipped at 1.0.
+
+For zero-indexed update $s$ and horizon $H$, the implemented learning rate is
+
+$$
+\eta_s=10^{-3}\min\!\left(1,\frac{s+1}{100}\right)
+\left[0.1+\frac{0.9}{2}\left(1+\cos\frac{\pi s}{H}\right)\right].
+$$
+
+The warmup factor and cosine factor are multiplied, and the final 0.1 term
+prevents decay below one tenth of the peak. Crucially, $H$ is a configuration
+of the trajectory rather than the number of updates actually executed.
 
 The post-warmup learning rate follows a single cosine decay inspired by SGDR
 [3], but uses no restart. A schedule horizon is defined independently of the
@@ -292,6 +333,15 @@ cache-off/on comparison is the cleanest mechanism ablation because the two
 artifacts share the same source checkpoint and differ only in frozen cache
 configuration.
 
+The stored per-window validation losses permit a paired descriptive check.
+Cache-on lowers summed NLL in 1,259 of 1,472 windows (85.53%) and raises it in
+213 (14.47%). The paired change has median -13.978 nats per window and sums to
+-28,542.748 nats over validation. Thus the aggregate cache gain is distributed
+across most windows rather than arising from only a handful of outliers, while
+the harmed windows confirm that retrieval is not uniformly beneficial. These
+windows are contiguous pieces of one corpus, so the counts are descriptive and
+are not treated as independent samples or a significance test.
+
 ## 6. Computation and resource trade-offs
 
 The proposed network has 9.74 times as many trainable parameters as B0, but
@@ -402,6 +452,19 @@ interpreted the experiments, checked mechanisms against code, and remain
 responsible for design, citations, claims, disclosure and submission. AI output
 was not treated as experimental evidence; each reported number is tied to an
 artifact and command.
+
+### 7.5 Reproducibility map
+
+The repository README gives exact setup, training, validation, resource
+measurement, freeze and final-scoring commands. A machine-readable record
+binds the selected checkpoint to hashes of the code, tokenizer,
+training/validation text and official evaluator. The submission manifest lists
+the distributable files and checksums. The checkpoint bundle restores without
+retraining, and the 24 contract tests cover evaluation equivalence, causality,
+state reset, data isolation and bit-exact training resume. This separates three
+claims that are otherwise easy to conflate: the experiment can be rerun from
+random initialization, the submitted predictor can be scored directly, and the
+reported artifact can be matched to the frozen evidence.
 
 ## 8. Conclusion
 

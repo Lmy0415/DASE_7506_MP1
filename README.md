@@ -53,7 +53,7 @@ variance across random initializations.
 
 ## Repository map
 
-- [`REPORT.pdf`](REPORT.pdf) and [`REPORT.tex`](REPORT.tex): six-page final
+- [`REPORT.pdf`](REPORT.pdf) and [`REPORT.tex`](REPORT.tex): ten-page final
   report and its standard LaTeX source.
 - [`EXPERIMENT_PLAN.md`](EXPERIMENT_PLAN.md): predeclared formal protocol.
 - [`EXPERIMENT_HISTORY.md`](EXPERIMENT_HISTORY.md): exploratory cost and

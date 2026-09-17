@@ -1,10 +1,12 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\documentclass[10pt]{article}
-\usepackage[letterpaper,margin=0.68in]{geometry}
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1.00in]{geometry}
 \usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\usepackage{setspace}
+\setstretch{1.17}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
@@ -36,24 +38,24 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\setlength{\parindent}{1em}
-\setlength{\parskip}{2pt plus 1pt minus 1pt}
-\renewcommand{\arraystretch}{0.94}
-\setlength{\tabcolsep}{4pt}
+\setlength{\parindent}{1.15em}
+\setlength{\parskip}{4pt plus 1pt minus 1pt}
+\renewcommand{\arraystretch}{1.08}
+\setlength{\tabcolsep}{3.6pt}
 \makeatletter
 \renewcommand\section{\@startsection{section}{1}{0pt}%
-  {1.2ex plus .3ex minus .2ex}{.5ex plus .2ex}%
+  {2.1ex plus .4ex minus .2ex}{.8ex plus .2ex}%
   {\normalfont\large\bfseries}}
 \renewcommand\subsection{\@startsection{subsection}{2}{0pt}%
-  {.9ex plus .2ex minus .2ex}{.35ex plus .1ex}%
+  {1.6ex plus .3ex minus .2ex}{.6ex plus .1ex}%
   {\normalfont\normalsize\bfseries}}
 \makeatother
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
-\setlength{\LTpre}{3pt}
-\setlength{\LTpost}{3pt}
+\setlength{\LTpre}{6pt}
+\setlength{\LTpost}{6pt}
 \AtBeginEnvironment{longtable}{\small}
 \makeatletter
 \patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
@@ -94,7 +96,7 @@
 
 \begin{document}
 \maketitle
-\vspace{-1.5em}
+\vspace{-0.4em}
 
 \section{Abstract}\label{abstract}
 
@@ -205,6 +207,22 @@ avoids confounding greater model width with a different per-head
 dimension. The cache does not participate in training and adds no
 learned parameters.
 
+The parameter counts can be audited directly from the architecture. With
+vocabulary \(V\), context length \(C\), width \(d\) and \(N\) blocks, tied
+input/output embeddings give
+
+\[
+P(V,C,d,N)=Vd+Cd+N(12d^2+13d)+2d.
+\]
+
+Within each block, Q/K/V and the attention output contribute \(4d^2\),
+while the two MLP projections contribute \(8d^2\); biases and two
+LayerNorms account for the \(13d\) term. Substitution yields 1,088,256
+parameters for \((d,N)=(128,4)\) and 10,601,600 for \((320,8)\). Because
+width, depth and head count change together, the formal same-target
+control identifies the effect of this capacity/shape bundle, not a
+separate causal effect for any one dimension.
+
 \subsection{2.2 Strictly causal continuous
 cache}\label{22-strictly-causal-continuous-cache}
 
@@ -250,6 +268,23 @@ hidden similarity retrieves an irrelevant successor. The small
 interpolation weight limits that risk, and an exact cache-off/on
 comparison measures its net effect.
 
+Causality follows from the index constraint rather than from an informal
+assumption about implementation. For a query at \(t\), every memory
+satisfies \(m<t\), so its largest possible successor index is \(m+1=t\);
+that token is already inside \(x_{\leq t}\). The lower-triangular mask is
+applied to similarity logits before softmax, hence a forbidden location
+receives exactly zero probability. With \(K=255\), all useful earlier
+positions of a 256-token window are available, but none from another
+window are retained.
+
+For the observed next token \(y^*\), interpolation helps exactly when
+\(p_{\mathrm{cache}}(y^*)>p_{\mathrm{NN}}(y^*)\) and hurts when the
+inequality is reversed. If the cache gives \(y^*\) zero mass, the neural
+probability is only scaled by \(1-\lambda=0.935\), corresponding to a
+worst-case extra penalty of \(-\log_2(0.935)=0.09696\) bits per token.
+This bounded downside is one reason for using a small
+validation-selected interpolation weight.
+
 \subsection{2.3 Optimizer and cosine
 trajectory}\label{23-optimizer-and-cosine-trajectory}
 
@@ -257,6 +292,19 @@ All formal runs use AdamW {[}4{]}, whose decoupled weight decay is
 distinct from an \(L_2\) penalty under adaptive optimization. The peak
 learning rate is \(10^{-3}\), warmup is 100 updates, minimum/peak ratio
 is 0.1, weight decay is 0.1, and gradient norm is clipped at 1.0.
+
+For zero-indexed update \(s\) and horizon \(H\), the implemented learning
+rate is
+
+\[
+\eta_s=10^{-3}\min\!\left(1,\frac{s+1}{100}\right)
+\left[0.1+\frac{0.9}{2}\left(1+\cos\frac{\pi s}{H}\right)\right].
+\]
+
+The warmup factor and cosine factor are multiplied, and the final 0.1
+term prevents decay below one tenth of the peak. Crucially, \(H\) is a
+configuration of the trajectory rather than the number of updates
+actually executed.
 
 The post-warmup learning rate follows a single cosine decay inspired by
 SGDR {[}3{]}, but uses no restart. A schedule horizon is defined
@@ -429,7 +477,7 @@ Total versus B0 & -0.477137 \\
 \end{longtable}
 
 \begin{center}
-\includegraphics[width=0.86\linewidth,keepaspectratio]{figures/bpb_decomposition.png}
+\includegraphics[width=0.62\linewidth,keepaspectratio]{figures/bpb_decomposition.png}
 \end{center}
 
 The schedule result is already concrete: \(1.997825-2.075891=-0.078066\)
@@ -446,6 +494,16 @@ contributes 0.035870 BPB. The four signed changes sum to -0.477137 BPB,
 or a 22.9847\% reduction relative to B0. The cache-off/on comparison is
 the cleanest mechanism ablation because the two artifacts share the same
 source checkpoint and differ only in frozen cache configuration.
+
+The stored per-window validation losses permit a paired descriptive
+check. Cache-on lowers summed NLL in 1,259 of 1,472 windows (85.53\%) and
+raises it in 213 (14.47\%). The paired change has median -13.978 nats per
+window and sums to -28,542.748 nats over validation. Thus the aggregate
+cache gain is distributed across most windows rather than arising from
+only a handful of outliers, while the harmed windows confirm that
+retrieval is not uniformly beneficial. These windows are contiguous
+pieces of one corpus, so the counts are descriptive and are not treated
+as independent samples or a significance test.
 
 \section{6. Computation and resource
 trade-offs}\label{6-computation-and-resource-trade-offs}
@@ -584,6 +642,20 @@ and interpreted the experiments, checked mechanisms against code, and
 remain responsible for design, citations, claims, disclosure and
 submission. AI output was not treated as experimental evidence; each
 reported number is tied to an artifact and command.
+
+\subsection{7.5 Reproducibility map}\label{75-reproducibility-map}
+
+The repository README gives exact setup, training, validation, resource
+measurement, freeze and final-scoring commands. A machine-readable record
+binds the selected checkpoint to hashes of the code, tokenizer,
+training/validation text and official evaluator. The submission manifest
+lists the distributable files and checksums. The checkpoint bundle
+restores without retraining, and the 24 contract tests
+cover evaluation equivalence, causality, state reset, data isolation and
+bit-exact training resume. This separates three claims that are otherwise
+easy to conflate: the experiment can be rerun from random initialization,
+the submitted predictor can be scored directly, and the reported artifact
+can be matched to the frozen evidence.
 
 \section{8. Conclusion}\label{8-conclusion}
 
