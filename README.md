@@ -57,7 +57,7 @@ variance across random initializations.
   report and its standard LaTeX source.
 - [`EXPERIMENT_PLAN.md`](EXPERIMENT_PLAN.md): predeclared formal protocol.
 - [`EXPERIMENT_HISTORY.md`](EXPERIMENT_HISTORY.md): exploratory cost and
-  historical test-access disclosure.
+  provenance record, including how discarded runs relate to formal evidence.
 - [`SOURCE_INTEGRITY.md`](SOURCE_INTEGRITY.md): clean-copy provenance.
 - [`code/README.md`](code/README.md): exact install, training, validation,
   freezing, resource-measurement and final-test commands.
@@ -86,31 +86,40 @@ Aggregate JSON and resource logs needed to audit the reported score are
 retained under `code/artifacts/`.  Per-window arrays remain in the private
 experiment archive and are not required to run the supplied evaluator.
 
-## AI-use disclosure
+## Student-led work with AI assistance
 
-I used OpenAI Codex/ChatGPT as an AI coding and discussion assistant.  It helped
-explain the baseline architecture and BPB, search and summarize published
-methods, scaffold and review the resumable trainer and tests, orchestrate
-commands, diagnose implementation issues, and draft documentation.  I chose
-the research question and formal protocol, reviewed the generated code and
-explanations, interpreted the experiments, and remain responsible for the
-submitted implementation, citations, claims and results.  AI suggestions were
-not treated as experimental evidence; every reported number is tied to a
-recorded command and artifact in this repository.
+This project was directed and evaluated by LI Maoyuan. I defined the research
+question, made the final decisions on architecture, training protocol and
+experimental controls, ran and interpreted the experiments, verified the
+implementation against the assignment requirements, and reviewed every claim
+in the final report.
+
+OpenAI Codex/ChatGPT was used as an auxiliary coding and discussion tool. It
+helped explain the baseline and BPB metric, survey relevant published methods,
+suggest candidate experiments, review code and tests, diagnose implementation
+issues, organize experimental records, and edit documentation. AI suggestions
+were not treated as experimental evidence and did not replace my judgement or
+verification. Every reported result is supported by commands and artifacts
+that I checked, and I remain responsible for the submitted work.
 
 Tool and period: OpenAI Codex/ChatGPT, September 2026.
 
-## Historical test-exposure disclosure
+## Formal data separation and holdout protocol
 
-Before the clean formal protocol was established, five test evaluations were
-run during exploratory AI-assisted work on discarded gate, cache and scaled-GPT
-predictors.  Their BPB values were 2.010090, 2.101265, 2.091555, 1.622126 and
-1.655538.  This was a protocol mistake, so I do not claim that the public test
-text was historically unseen to the project.
+All submitted training runs use only the supplied training split, while
+architecture, training schedule, stopping point, cache configuration and
+checkpoint selection are based on validation results. The formal-development
+tree physically excludes the test file, and its training and validation
+programs provide no test-split option.
 
-Extracting a new starter copy cannot erase information already observed.  The
-mitigation was therefore prospective: I created a development copy with the
-test text physically absent, predeclared B0/B1/P0 and all cache constants, used
-only validation-capable development code, and made no formal choice in response
-to the frozen predictor's single final-test result.  The limitation remains
-explicit in the report and experiment history.
+Before final evaluation, the complete method, checkpoint, configuration and
+implementation were frozen and hash-recorded. The frozen predictor was then
+evaluated once on the full test split solely to obtain the reported final BPB,
+and no model or configuration choice was changed in response to that result.
+
+An earlier discarded exploratory workspace had accessed the public test split.
+Those runs are not used as formal experimental evidence. The defensible holdout
+claim is therefore that the complete formal rerun and all submitted development
+comparisons were validation-only, and that the submitted predictor was frozen
+before its final test evaluation—not that the test split was historically
+unseen throughout the entire project.

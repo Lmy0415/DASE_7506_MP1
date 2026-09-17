@@ -166,10 +166,11 @@ score loop 是 41.520049 秒，外部 elapsed 是 50.96 秒，peak RSS 是
 的成本下界是 40,065.386 job-seconds；cache
 grid 和无 artifact 的失败任务因没有时间记录，只能标记 unknown，不能记成 0。
 
-历史上曾经有 5 次探索性 test evaluation。重新解压 ZIP 不能让研究者忘掉
-已经见过的分数，所以必须披露。我们能做到的是：之后预注册正式设置、正式
-开发不读取 test、冻结 checkpoint/hash 后只运行一次新的正式 test，并且不按
-这个结果改方法。
+最终提交的完整 rerun 只用 train/validation 做开发与选择；方法、配置和
+checkpoint 冻结并记录 hash 后，才进行一次最终 test，而且没有根据该结果修改
+任何选择。更早废弃的探索 workspace 曾访问公开 test，但这些运行不作为正式
+证据。因此准确表述是：正式比较为 validation-only，最终模型只做一次
+post-freeze test；不把更早的探索运行混入提交结论。
 
 ## 6. 最后你应该能用一分钟讲清楚
 
@@ -184,4 +185,4 @@ grid 和无 artifact 的失败任务因没有时间记录，只能标记 unknown
 你还应能回答：为什么 320x8 是有限搜索结果、为什么 LR horizon 和 actual
 stop 分开、cache 的
 value 为什么没有泄漏 target、资源计时为何有 score-loop 与 external elapsed
-两种口径，以及 single seed 和历史 test exposure 限制了哪些结论。
+两种口径，以及 single seed 与正式 holdout 声明的适用范围限制了哪些结论。

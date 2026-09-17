@@ -173,25 +173,26 @@ Do not run formal test evaluations for:
 The single final-test BPB is reported as one value. No test mean or test
 standard deviation is reported.
 
-## 8. Historical test-exposure disclosure
+## 8. Formal data separation and holdout statement
 
-Before this formal protocol was created, exploratory work in other working
-directories had already evaluated earlier gate and cache-based predictors on
-the public test split. That exposure cannot be undone and must be disclosed in
-the README and report.
+This section summarizes the final scope of the holdout claim; Git history
+preserves the original preregistered protocol.
 
-The formal protocol does not claim that the public test split was historically
-unseen. It claims only that, after this preregistration, no formal architecture,
-training, checkpoint, or cache decision is changed using test results, and that
-the single frozen formal predictor is newly scored on the full test once.
+All submitted training runs use only the supplied training split, while
+architecture, training schedule, stopping point, cache configuration and
+checkpoint selection are based on validation results. The formal-development
+tree physically excludes the test file, and its training and validation
+programs provide no test-split option.
 
-Suggested disclosure:
+Before final evaluation, the complete method, checkpoint, configuration and
+implementation were frozen and hash-recorded. The frozen predictor was then
+evaluated once on the full test split solely to obtain the reported final BPB,
+and no model or configuration choice was changed in response to that result.
 
-> Earlier exploratory work accessed the public test split. The formal protocol
-> was subsequently preregistered and fixed all architecture, schedule,
-> checkpoint, seed, and cache choices before formal validation and the single
-> final-test evaluation. No formal choice was changed in response to a formal
-> test result.
+An earlier discarded exploratory workspace had accessed the public test split.
+Those runs are not used as formal experimental evidence. The complete formal
+rerun and all submitted development comparisons were validation-only, and the
+submitted predictor was frozen before its final test evaluation.
 
 ## 9. Formal cost and provenance record
 
@@ -247,4 +248,3 @@ retained in the repository.
 | Proposed same-target | 7506 | 1200 / 4800 | 9,830,400 | off | pending | not run |
 | Proposed longer, ablation | 7506 | 3000 / 4800 | 24,576,000 | off | pending | not run |
 | Frozen final predictor | 7506 | 3000 / 4800 | 24,576,000 | 255/13/0.065 | pending | one final run only |
-

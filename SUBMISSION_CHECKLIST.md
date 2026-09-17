@@ -14,7 +14,7 @@
 - [x] Commit `FINAL_FREEZE.json` before restoring the test split (public freeze commit `846cfda2daaf0719bcd994302e44f5092f4f7413`; original formal workspace commit `30eb20d9d1f36bb790615c3753fa2c6e8ba53b5f`).
 - [x] Run exactly one new formal full-test evaluation of the frozen predictor (1.6160026140038766 BPB).
 - [ ] Fill every report/README/Issue placeholder from recorded artifacts.
-- [x] Compile the standard LaTeX report and visually inspect all 6 PDF pages (<=10 pages).
+- [x] Compile the standard LaTeX report and visually inspect all 10 PDF pages (<=10 pages).
 - [x] Build and hash the checkpoint download bundle; test its reconstruction and loading.
 - [ ] Create immutable GitHub source/checkpoint/report links.
 - [ ] Create the GitHub Issue titled `DASE_7506_MP1` with matching BPB and links.

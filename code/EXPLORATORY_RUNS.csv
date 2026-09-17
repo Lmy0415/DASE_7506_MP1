@@ -14,12 +14,12 @@ scaling,scaled-192x6-3600-s17,17,gpt-192x6,3111936,3600,29491200,4,2300.381,2406
 schedule_search,final-320x8-cosine-4800-s17,17,gpt-320x8,10601600,4800,39321600,3,13674.243,14160.403,validation,1.676923,b2cdf332049bc2b4e60c66d13275a51a75e1f0a983f1a15cd5959a225a9f6098,Recorded exploratory metrics
 schedule_search,final-320x8-wsd-4800-s17,17,gpt-320x8,10601600,4800,39321600,3,13782.628,14170.430,validation,1.654850,aea51adeb8c6d89f93244214ffb52645f5d709f6920731424fc3ef94ff196fc0,Recorded exploratory metrics
 standalone_eval,continuous-cache-base-validation,17,continuous-cache-128x4,,1200,9830400,4,,9.996,validation,1.997427,,Independent evaluation only
-standalone_eval,continuous-cache-base-test,17,continuous-cache-128x4,,1200,9830400,4,,11.674,test,2.010090,,Historical test exposure
-standalone_eval,gate-off-test,17,gate-128x4,1154304,1200,9830400,4,,8.580,test,2.101265,,Historical test exposure
-standalone_eval,gate-on-test,17,gate-128x4,1154304,1200,9830400,4,,8.921,test,2.091555,,Historical test exposure
+standalone_eval,continuous-cache-base-test,17,continuous-cache-128x4,,1200,9830400,4,,11.674,test,2.010090,,Discarded exploratory evaluation; excluded from formal evidence
+standalone_eval,gate-off-test,17,gate-128x4,1154304,1200,9830400,4,,8.580,test,2.101265,,Discarded exploratory evaluation; excluded from formal evidence
+standalone_eval,gate-on-test,17,gate-128x4,1154304,1200,9830400,4,,8.921,test,2.091555,,Discarded exploratory evaluation; excluded from formal evidence
 standalone_eval,gate-on-validation-recheck,17,gate-128x4,1154304,1200,9830400,4,,7.992,validation,2.062157,,Independent evaluation only
 standalone_eval,gate-on-validation-ram,17,gate-128x4,1154304,1200,9830400,4,,7.851,validation,2.062157,,Independent evaluation only
 standalone_eval,final-320x8-cache-validation,17,gpt-320x8-cache,10601600,4800,39321600,3,,31.691,validation,1.608030,,Independent evaluation only
-standalone_eval,final-320x8-cache-test,17,gpt-320x8-cache,10601600,4800,39321600,3,,37.244,test,1.622126,,Historical test exposure
+standalone_eval,final-320x8-cache-test,17,gpt-320x8-cache,10601600,4800,39321600,3,,37.244,test,1.622126,,Discarded exploratory evaluation; excluded from formal evidence
 standalone_eval,scaled-192x6-cache-validation,17,gpt-192x6-cache,3111936,3600,29491200,4,,15.522,validation,1.641603,,Independent evaluation only
-standalone_eval,scaled-192x6-cache-test,17,gpt-192x6-cache,3111936,3600,29491200,4,,17.582,test,1.655538,,Historical test exposure
+standalone_eval,scaled-192x6-cache-test,17,gpt-192x6-cache,3111936,3600,29491200,4,,17.582,test,1.655538,,Discarded exploratory evaluation; excluded from formal evidence

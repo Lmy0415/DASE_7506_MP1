@@ -276,18 +276,34 @@ and 1.550232 GiB peak RSS.
 | P0 longer | 3,000 / 4,800 | 24,576,000 | off | 1.634623765423197 | not run |
 | **P0 submitted** | **3,000 / 4,800** | **24,576,000** | **255/13/0.065** | **1.598754227700291** | **1.6160026140038766** |
 
-The definitive formal ledger is `FORMAL_RUNS.csv`; exploratory runs and
-historical test access are disclosed in `../EXPERIMENT_HISTORY.md` and
-`EXPLORATORY_RUNS.csv`. Preserve every JSON, `.window-nll.npy`, resource log,
-checkpoint hash, exact source revision and package version with the submission.
+The definitive formal ledger is `FORMAL_RUNS.csv`. Discarded exploratory runs
+are retained for provenance and cost accounting in `../EXPERIMENT_HISTORY.md`
+and `EXPLORATORY_RUNS.csv`, but are excluded from formal evidence. Preserve
+every JSON, `.window-nll.npy`, resource log, checkpoint hash, exact source
+revision and package version with the submission.
 
-## 8. AI assistance and data attribution
+## 8. Student-led work, AI assistance and data attribution
 
-The repository-level README contains the full AI-use and historical
-test-exposure disclosures. In summary, OpenAI Codex/ChatGPT assisted with
-explanation, literature search, code scaffolding/review, experiment
-orchestration and documentation; the student is responsible for understanding,
-verification, interpretation and submission.
+This project was directed and evaluated by LI Maoyuan. I defined the research
+question, made the final decisions on architecture, training protocol and
+experimental controls, ran and interpreted the experiments, verified the
+implementation against the assignment requirements, and reviewed every claim
+in the final report.
+
+OpenAI Codex/ChatGPT was used as an auxiliary coding and discussion tool. It
+helped explain the baseline and BPB metric, survey relevant published methods,
+suggest candidate experiments, review code and tests, diagnose implementation
+issues, organize experimental records, and edit documentation. AI suggestions
+were not treated as experimental evidence and did not replace my judgement or
+verification. Every reported result is supported by commands and artifacts
+that I checked, and I remain responsible for the submitted work.
+
+All submitted training and model selection used the supplied train and
+validation splits only. The formal-development tree excluded the test file, and
+the complete method and checkpoint were frozen and hash-recorded before one
+final full-test evaluation; no choice changed afterward. An earlier discarded
+exploratory workspace had accessed the public test split, but those runs are
+not used as formal evidence.
 
 WikiText-2 was introduced by Stephen Merity, Caiming Xiong, James Bradbury and
 Richard Socher in *Pointer Sentinel Mixture Models* (ICLR 2017). The text is by

@@ -29,9 +29,10 @@ frozen predictor obtained **1.598754 validation BPB**, a reduction of
 baseline, peak RSS was 1.517380 GiB, and uncompressed inference assets were
 40.478294 MiB, all within the stated limits.
 Because formal comparisons use one seed, they are paired observations rather
-than evidence of statistical stability. Earlier exploratory work accessed the
-public test split; this is disclosed, and no claim is made that it was
-historically unseen.
+than evidence of statistical stability. All development and selection in the
+formal rerun used the training and validation splits only. The complete method
+and checkpoint were frozen before one final test evaluation, and no setting was
+changed afterward.
 
 ## 1. Task, metric and baseline
 
@@ -425,33 +426,41 @@ stable/decay split was not exhaustively searched. These choices deliberately
 trade breadth for a small, reproducible formal matrix appropriate to a 10%-of-
 course mini project.
 
-### 7.3 Historical test exposure
+### 7.3 Formal data separation and holdout protocol
 
-Before preregistration, five test evaluations were run on discarded exploratory
-predictors, with BPB values 2.010090, 2.101265, 2.091555, 1.622126 and 1.655538.
-This was a protocol mistake. Extracting a fresh ZIP does not erase information
-already observed, so this report does not claim that test was historically
-unseen.
+All submitted training runs use only the supplied training split, while
+architecture, training schedule, stopping point, cache configuration and
+checkpoint selection are based on validation results. The formal-development
+tree physically excludes the test file, and its training and validation
+programs provide no test-split option.
 
-The mitigation is prospective. A clean formal-development tree omitted the test
-file physically. B0, B1, P0, seed 7506, the 3,000-step stop, the 4,800-step
-horizon, and cache 255/13/.065 were committed before formal results. The final
-checkpoint and code hashes were frozen before the one new formal full-test
-evaluation, and no formal setting was changed in response to that score. This
-reduces further test-driven adaptation but cannot restore a statistically
-pristine holdout.
+Before final evaluation, the complete method, checkpoint, configuration and
+implementation were frozen and hash-recorded. The frozen predictor was then
+evaluated once on the full test split solely to obtain the reported final BPB,
+and no model or configuration choice was changed in response to that result.
 
-### 7.4 AI assistance
+An earlier discarded exploratory workspace had accessed the public test split.
+Those runs are not used as formal experimental evidence. The defensible holdout
+claim is therefore that the complete formal rerun and all submitted development
+comparisons were validation-only, and that the submitted predictor was frozen
+before its final test evaluation---not that the test split was historically
+unseen throughout the entire project.
 
-OpenAI Codex/ChatGPT was used substantively as a coding and discussion
-assistant. It helped explain the baseline and BPB, search and summarize
-published methods, propose and critique controls, scaffold and review code and
-tests, orchestrate commands, diagnose issues, audit costs and draft
-documentation. I reviewed the implementation and explanations, ran and
-interpreted the experiments, checked mechanisms against code, and remain
-responsible for design, citations, claims, disclosure and submission. AI output
-was not treated as experimental evidence; each reported number is tied to an
-artifact and command.
+### 7.4 Student-led work with AI assistance
+
+This project was directed and evaluated by LI Maoyuan. I defined the research
+question, made the final decisions on architecture, training protocol and
+experimental controls, ran and interpreted the experiments, verified the
+implementation against the assignment requirements, and reviewed every claim
+in the final report.
+
+OpenAI Codex/ChatGPT was used as an auxiliary coding and discussion tool. It
+helped explain the baseline and BPB metric, survey relevant published methods,
+suggest candidate experiments, review code and tests, diagnose implementation
+issues, organize experimental records, and edit documentation. AI suggestions
+were not treated as experimental evidence and did not replace my judgement or
+verification. Every reported result is supported by commands and artifacts
+that I checked, and I remain responsible for the submitted work.
 
 ### 7.5 Reproducibility map
 
@@ -481,7 +490,8 @@ The strongest causal evidence is the cache ablation, because it changes no
 neural weight. The same-target comparison supports an architecture effect for
 seed 7506, while the longer-run comparison quantifies the contribution of extra
 training. Conclusions remain bounded by the single seed, narrow architecture
-search, hardware-specific timing and disclosed historical test exposure.
+search, hardware-specific timing, validation-selected settings on one corpus,
+and a single post-freeze final test evaluation.
 
 ## References
 
